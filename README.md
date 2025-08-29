@@ -17,7 +17,20 @@ The system ingests stock price data and financial news, engineers features (tech
 
 !(path/to/your/architecture_diagram.png)
 
-_(Briefly explain the architecture flow here)_
+**Architectural Flow:**
+
+1. **Data Ingestion:** Scheduled jobs pull raw stock prices from Yahoo Finance and textual data from News API and Reddit.
+    
+2. **Feature Engineering:** The raw data is processed. Technical indicators are calculated from price data, and sentiment scores are extracted from text data using a FinBERT model. These features are conceptually stored for retrieval.
+    
+3. **Training Pipeline:** An orchestrated workflow retrieves the latest features, trains a new model (e.g., LSTM), validates its performance, and versions the resulting artifact in a model registry.
+    
+4. **CI/CD:** Any code changes pushed to the main branch of the GitHub repository trigger an automated workflow that runs tests and, upon success, deploys the updated application.
+    
+5. **Serving & UI:** The trained model is served via a FastAPI application deployed on Render. A user-facing Streamlit dashboard, hosted on Hugging Face Spaces, interacts with this API to display predictions.
+    
+6. **Monitoring & Retraining:** A separate, scheduled process continuously monitors the live prediction data for drift against a reference dataset. If significant drift is detected, it automatically triggers the training pipeline to retrain the model on new data, thus closing the loop.
+    
 
 ## Technology Stack
 
@@ -31,6 +44,8 @@ _(Briefly explain the architecture flow here)_
 |CI/CD|`GitHub Actions`|
 |Monitoring|`Evidently AI`|
 |Orchestration|`Prefect`|
+
+## [Detail Project](main.ipynb)..
 
 ## Setup and Installation
 
