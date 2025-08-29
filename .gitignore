@@ -19,3 +19,5 @@ feature_store.db
 .idea/
 .vscode/
 .DS_Store
+
+.env
