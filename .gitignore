@@ -1,0 +1,21 @@
+# Virtual Environment
+venv/
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# MLflow
+mlruns/
+.mlflow_runs/
+
+# Data files (if large, consider DVC or Git LFS)
+data/raw/
+data/processed/
+feature_store.db
+
+# IDE and OS files
+.idea/
+.vscode/
+.DS_Store
