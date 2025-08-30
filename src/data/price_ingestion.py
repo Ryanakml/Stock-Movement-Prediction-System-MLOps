@@ -2,6 +2,7 @@
 import yfinance as yf
 import pandas as pd
 import os
+from datetime import datetime
 
 def fetch_price_data(ticker: str, start_date: str, end_date: str, interval: str = "1d") -> pd.DataFrame:
     """
@@ -42,8 +43,8 @@ def fetch_price_data(ticker: str, start_date: str, end_date: str, interval: str 
 if __name__ == '__main__':
     # Configuration
     TICKER = "AAPL"
-    START_DATE = "2020-01-01"
-    END_DATE = "2023-12-31"
+    START_DATE = "2024-01-01"
+    END_DATE = datetime.now().strftime("%Y-%m-%d")
     DATA_PATH = f"data/raw/{TICKER}_price_data.csv"
 
     # Ensure data directory exists
