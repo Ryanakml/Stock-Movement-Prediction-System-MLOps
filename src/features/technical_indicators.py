@@ -61,9 +61,13 @@ if __name__ == "__main__":
         numeric_cols = ["open","high","low","close","volume"]
         for col in numeric_cols:
             price_df[col] = pd.to_numeric(price_df[col], errors="coerce")
-
+            
         # Tambahkan technical indicators
         indicators_df = add_technical_indicators(price_df)
+
+        # Fixing date columns
+        indicators_df = indicators_df.rename(columns={'price': 'Date'})
+        indicators_df['Date'] = pd.to_datetime(indicators_df['Date'])
 
         # Simpan hasil
         os.makedirs(os.path.dirname(OUTPUT_PATH), exist_ok=True)
