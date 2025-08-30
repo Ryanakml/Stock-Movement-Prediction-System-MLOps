@@ -34,6 +34,7 @@ def fetch_price_data(ticker: str, start_date: str, end_date: str, interval: str 
         
         print(f"Successfully fetched {len(stock_data)} data points for {ticker}.")
         return stock_data
+        
     except Exception as e:
         print(f"An error occurred while fetching data for {ticker}: {e}")
         return pd.DataFrame()
