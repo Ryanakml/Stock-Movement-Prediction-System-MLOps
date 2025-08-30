@@ -1,79 +1,43 @@
-# file: src/data/news_ingestion.py
-import os
+import requests
 import pandas as pd
-from newsapi import NewsApiClient
-from datetime import datetime, timedelta
+import os
 from dotenv import load_dotenv
 
 load_dotenv()
 
-def fetch_news_data(api_key: str, query: str, start_date: str, end_date: str) -> pd.DataFrame:
-    """
-    Fetches news articles related to a query within a date range.
+# API Key Polygon.io
+POLYGON_API_KEY = os.getenv("POLYGON_API_KEY") 
+TICKER = "AAPL"
 
-    Args:
-        api_key (str): Your NewsAPI key.
-        query (str): The search query (e.g., 'Apple' or 'AAPL').
-        start_date (str): The start date in 'YYYY-MM-DD' format.
-        end_date (str): The end date in 'YYYY-MM-DD' format.
+# Rentang waktu
+start_date = "2025-08-01"  # YYYY-MM-DD
+end_date = "2025-08-30"
 
-    Returns:
-        pd.DataFrame: A DataFrame with news articles.
-    """
-    newsapi = NewsApiClient(api_key=api_key)
-    all_articles = []
-    
-    # NewsAPI's 'everything' endpoint on the free plan is limited to the last month.
-    # For a portfolio project, we can fetch recent data or use a sample historical dataset.
-    # Here, we fetch data for the last 28 days for demonstration.
-    
-    end = datetime.strptime(end_date, "%Y-%m-%d")
-    start = datetime.strptime(start_date, "%Y-%m-%d")
-    
-    # To respect API limits, we fetch data in chunks if needed, though for a short period it's not necessary.
-    try:
-        response = newsapi.get_everything(
-            q=query,
-            from_param=start.strftime('%Y-%m-%d'),
-            to=end.strftime('%Y-%m-%d'),
-            language='en',
-            sort_by='publishedAt',
-            page_size=100 # Max page size
-        )
-        if response.get("status") != "ok":
-            raise ValueError(f"API error: {response}")
-        articles = response.get("articles", [])
-        all_articles.extend(articles)
-        
-        df = pd.DataFrame(all_articles)
-        if not df.empty:
-            df = df[['publishedAt', 'title', 'description', 'content']]
-            df['publishedAt'] = pd.to_datetime(df['publishedAt']).dt.tz_localize(None)
-            print(f"Successfully fetched {len(df)} news articles for query '{query}'.")
-            return df
-        else:
-            print(f"No news articles found for query '{query}'.")
-            return pd.DataFrame()
-            
-    except Exception as e:
-        print(f"An error occurred during news fetching: {e}")
-        return pd.DataFrame()
+# Endpoint untuk berita ticker dengan rentang waktu
+url = (
+    f"https://api.polygon.io/v2/reference/news?"
+    f"ticker={TICKER}&limit=100&apiKey={POLYGON_API_KEY}"
+    f"&published_utc.gte={start_date}&published_utc.lte={end_date}"
+)
 
-if __name__ == '__main__':
-    # IMPORTANT: Store your API key as an environment variable, not in the code.
-    NEWS_API_KEY = os.getenv("NEWS_API_KEY")
-    if not NEWS_API_KEY:
-        raise ValueError("NEWS_API_KEY environment variable not set.")
+response = requests.get(url)
+data = response.json()
 
-    QUERY = "Apple OR AAPL"
-    END_DATE_DT = datetime.now()
-    START_DATE_DT = END_DATE_DT - timedelta(days=28) # Free tier limit
+if response.status_code == 200 and data.get("results"):
+    df = pd.DataFrame(data["results"])
+    df = df[['published_utc', 'title', 'description', 'article_url']]
+    df.rename(columns={'published_utc': 'publishedAt'}, inplace=True)
+    df['publishedAt'] = pd.to_datetime(df['publishedAt']).dt.tz_localize(None)
+
+    # Pastikan folder data/raw ada
+    os.makedirs("data/raw", exist_ok=True)
+    csv_path = f"data/raw/{TICKER}_news_data.csv"
+    df.to_csv(csv_path, index=False)
     
-    DATA_PATH = f"data/raw/AAPL_news_data.csv"
-    os.makedirs(os.path.dirname(DATA_PATH), exist_ok=True)
+    print(f"Successfully fetched {len(df)} news articles for {TICKER}")
+    print(f"Saved to {csv_path}")
+    print()
+    print(df.head())
     
-    news_df = fetch_news_data(NEWS_API_KEY, QUERY, START_DATE_DT.strftime('%Y-%m-%d'), END_DATE_DT.strftime('%Y-%m-%d'))
-    if not news_df.empty:
-        news_df.to_csv(DATA_PATH, index=False)
-        print(f"News data saved to {DATA_PATH}")
-        print(news_df.head())
+else:
+    print(f"Failed to fetch news: {data}")
