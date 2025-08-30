@@ -13,3 +13,10 @@ requests==2.32.3
 onnx==1.16.1
 tf2onnx==1.16.0
 skl2onnx==1.16.0
+newsapi-python
+pandas-ta
+yfinance
+pytorch
+transformer
+tf-keras
+keras<3
