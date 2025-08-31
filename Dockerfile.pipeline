@@ -1,0 +1,12 @@
+# file: Dockerfile.pipeline
+FROM python:3.10-slim
+
+WORKDIR /app
+
+COPY requirements.txt.
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY..
+
+# This container is intended to be run for specific tasks, e.g., via Prefect
+ENTRYPOINT ["python"]
