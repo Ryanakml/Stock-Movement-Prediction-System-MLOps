@@ -3,6 +3,7 @@ import streamlit as st
 import requests
 import pandas as pd
 import os
+import joblib
 
 # This would be a utility function to get the latest 30 days of features
 # In a real app, this would involve running the full ingestion and feature engineering pipeline
