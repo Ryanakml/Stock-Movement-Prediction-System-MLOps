@@ -8,9 +8,9 @@ COPY requirements.txt requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy project files
-COPY ./src /app/src
-COPY ./models /app/models
-COPY ./api/main.py /app/main.py
+COPY ../src /app/src
+COPY ../models /app/models
+COPY ./main.py /app/main.py
 
 # Expose the port FastAPI runs on
 EXPOSE 8000
