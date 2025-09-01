@@ -28,8 +28,8 @@ def get_latest_features():
 st.title("Stock Price Movement Prediction")
 
 # Get the API URL from an environment variable for flexibility
-API_URL = os.getenv("API_URL", "YOUR_RENDER_API_URL_HERE")
-if API_URL == "YOUR_RENDER_API_URL_HERE":
+API_URL = os.getenv("API_URL", "https://stock-movement-prediction-system-mlops.onrender.com")
+if API_URL == "https://stock-movement-prediction-system-mlops.onrender.com":
     st.error("Please set the API_URL environment variable.")
 
 st.write("This dashboard predicts the next day's stock price movement for AAPL (Apple Inc.).")
