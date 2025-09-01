@@ -24,4 +24,3 @@ shap==0.44.1
 praw==7.7.1
 matplotlib==3.8.3
 tf-keras
-keras<3
