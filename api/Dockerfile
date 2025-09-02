@@ -13,6 +13,7 @@ COPY models/ /app/models/
 COPY api/main.py /app/main.py
 
 # Expose the port FastAPI runs on
+##
 EXPOSE 8000
 
 # Run FastAPI with uvicorn
