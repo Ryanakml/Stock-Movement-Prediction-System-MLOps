@@ -11,11 +11,12 @@ The system ingests stock price data and financial news, engineers features (tech
 - **Prediction API (Render):**
     
 - **User Dashboard (Hugging Face):**
-    
+
+[](assets/architecture.webp)
 
 ## MLOps Architecture
 
-!(path/to/your/architecture_diagram.png)
+[](assets/architecture.webp)
 
 **Architectural Flow:**
 
