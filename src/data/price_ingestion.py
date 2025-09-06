@@ -13,19 +13,22 @@ def fetch_price_data(ticker: str, start_date: str, end_date: str, interval: str 
         start_date (str): The start date for the data in 'YYYY-MM-DD' format.
         end_date (str): The end date for the data in 'YYYY-MM-DD' format.
         interval (str): The data interval. Valid intervals: 1d, 5d, 1wk, 1mo, 3mo.
-
+        auto_adjust (bool): Whether to adjust for stock splits and dividends.
+        progress (bool): Progress bar for status.
     Returns:
         pd.DataFrame: A DataFrame containing the OHLCV data, or an empty DataFrame if fetching fails.
     """
+
     try:
         stock_data = yf.download(
-            tickers=ticker,
-            start=start_date,
-            end=end_date,
+            tickers=ticker,   
+            start=start_date, 
+            end=end_date,     
             interval=interval,
-            auto_adjust=True,  # Adjusts for stock splits and dividends
-            progress=False
+            auto_adjust=True, 
+            progress=False    
         )
+        
         if stock_data.empty:
             print(f"No data found for {ticker} from {start_date} to {end_date}.")
             return pd.DataFrame()
