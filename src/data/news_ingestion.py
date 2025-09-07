@@ -3,6 +3,7 @@ import requests
 import pandas as pd
 from dotenv import load_dotenv  # for accessing environment variables
 from datetime import datetime, timedelta
+import time
 
 load_dotenv()
 
