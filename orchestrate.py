@@ -79,10 +79,10 @@ def retraining_flow():
     trigger_deployment(retrain_status)
 
 if __name__ == "__main__":
-    # To run the flow and schedule it, you would use the Prefect CLI:
+    # Steps
     # 1. `prefect server start` (in a separate terminal)
     # 2. `python orchestrate.py` (to register the flow)
-    # 3. `prefect deployment build./orchestrate.py:retraining_flow -n stock-retraining -q default`
+    # 3. `prefect deployment build orchestrate.py:retraining_flow -n stock-retraining -q default`
     # 4. `prefect deployment apply retraining_flow-deployment.yaml`
     # 5. Go to the Prefect UI to run or schedule the deployment.
     retraining_flow()
