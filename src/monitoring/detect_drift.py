@@ -15,7 +15,7 @@ def check_data_drift(reference_path: str, current_path: str, report_path: str) -
     # Evidently needs column mapping if target/prediction are present
     # For data drift, we can often omit this if we only check input features
     
-    data_drift_report = Report(metrics=)
+    data_drift_report = Report(metrics=[DataDriftPreset()])
     data_drift_report.run(reference_data=ref_data, current_data=curr_data)
     
     # Save the interactive HTML report
