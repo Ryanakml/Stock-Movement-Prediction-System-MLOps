@@ -63,7 +63,8 @@ def trigger_deployment(retrain_status: str):
         return
         
     print("Triggering deployment on Render...")
-    response = subprocess.run(, capture_output=True)
+    response = subprocess.run(["curl", "-X", "POST", deploy_hook_url], capture_output=True, text=True)
+    print(f"Response: {response}")
     if response.returncode == 0:
         print("Deployment triggered successfully.")
     else:
@@ -82,7 +83,7 @@ if __name__ == "__main__":
     # Steps
     # 1. `prefect server start` (in a separate terminal)
     # 2. `python orchestrate.py` (to register the flow)
-    # 3. `prefect deployment build orchestrate.py:retraining_flow -n stock-retraining -q default`
+    # 3. `prefect deployment build orchestrate.py:retraining_flow -n stock-retraining -q default`k
     # 4. `prefect deployment apply retraining_flow-deployment.yaml`
     # 5. Go to the Prefect UI to run or schedule the deployment.
     retraining_flow()
