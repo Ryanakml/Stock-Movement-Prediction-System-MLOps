@@ -10,10 +10,10 @@ __pycache__/
 mlruns/
 .mlflow_runs/
 
-# Data files (if large, consider DVC or Git LFS)
-data/raw/
-data/processed/
-feature_store.db
+# # Data files (if large, consider DVC or Git LFS)
+# data/raw/
+# data/processed/
+# feature_store.db
 
 # IDE and OS files
 .idea/
@@ -21,3 +21,5 @@ feature_store.db
 .DS_Store
 
 .env
+
+stock_predictor_ui/
