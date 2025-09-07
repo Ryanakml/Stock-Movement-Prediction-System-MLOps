@@ -2,6 +2,7 @@
 import pandas as pd
 import pandas_ta as ta
 import os
+from datetime import datetime
 
 def add_technical_indicators(df: pd.DataFrame) -> pd.DataFrame:
     """
@@ -36,9 +37,10 @@ def add_technical_indicators(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 if __name__ == "__main__":
+    current_date = datetime.now().strftime('%Y-%m-%d')
     TICKER = "AAPL"
-    INPUT_PATH = f"data/raw/{TICKER}_price_data.csv"
-    OUTPUT_PATH = f"data/processed/{TICKER}_technical_indicators.csv"
+    INPUT_PATH = f"data/live/price/{TICKER}_price_data_{current_date}.csv"
+    OUTPUT_PATH = f"data/featured//price/{TICKER}_technical_indicators{current_date}.csv"
 
     if not os.path.exists(INPUT_PATH):
         print(f"[ERROR] Price data not found at {INPUT_PATH}. Please run price_ingestion.py first.")
@@ -73,5 +75,5 @@ if __name__ == "__main__":
         os.makedirs(os.path.dirname(OUTPUT_PATH), exist_ok=True)
         indicators_df.to_csv(OUTPUT_PATH)
 
-        print(f"[SUCCESS] Data with technical indicators saved to {OUTPUT_PATH}")
+        print(f"Price data with technical indicators saved to {OUTPUT_PATH}")
         print(indicators_df.head())
