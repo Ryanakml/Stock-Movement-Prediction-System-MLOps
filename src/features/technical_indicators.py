@@ -40,7 +40,7 @@ if __name__ == "__main__":
     current_date = datetime.now().strftime('%Y-%m-%d')
     TICKER = "AAPL"
     INPUT_PATH = f"data/live/price/{TICKER}_price_data_{current_date}.csv"
-    OUTPUT_PATH = f"data/featured//price/{TICKER}_technical_indicators{current_date}.csv"
+    OUTPUT_PATH = f"data/featured/price/technical_indicators_{current_date}.csv"
 
     if not os.path.exists(INPUT_PATH):
         print(f"[ERROR] Price data not found at {INPUT_PATH}. Please run price_ingestion.py first.")

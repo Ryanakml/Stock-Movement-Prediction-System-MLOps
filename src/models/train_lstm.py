@@ -32,7 +32,7 @@ def train_lstm_model(ticker: str, time_steps: int = 30):
     """
     print("Starting Training LSTM ...")
     print("[1/7] Loading dataset...")
-    data_path = f"data/processed/{ticker}_final_dataset.csv"
+    data_path = f"data/final/{ticker}_final_dataset.csv"
     if not os.path.exists(data_path):
         raise FileNotFoundError(f"Final dataset not found: {data_path}")
     

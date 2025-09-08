@@ -83,9 +83,9 @@ def create_final_dataset(ticker: str):
     reddit_sentiment_path = f"data/final/{ticker}_reddit_sentiment.csv"
 
     # New data file path (The one to combine to)
-    daily_tech_path = f"data/featured/technical/{ticker}_technical_indicators_{current_date}.csv"
-    daily_news_path = f"data/featured/news/{ticker}_news{current_date}_sentiment.csv"
-    daily_reddit_path = f"data/featured/reddit/{ticker}_reddit{current_date}_sentiment.csv"
+    daily_tech_path = f"data/featured/price/technical_indicators_{current_date}.csv"
+    daily_news_path = f"data/featured/news/news{current_date}.csv"
+    daily_reddit_path = f"data/featured/reddit/reddit{current_date}.csv"
 
     # 2. Combine historical data with daily data
     print("Starting combining historical data with daily data")
