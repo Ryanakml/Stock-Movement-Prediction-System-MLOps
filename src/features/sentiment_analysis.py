@@ -72,15 +72,16 @@ def process_sentiment_for_source(input_path: str, output_path: str, text_column:
 
 if __name__ == '__main__':
     # Process News Data
+
     process_sentiment_for_source(
-        input_path="data/raw/AAPL_news_data.csv",
-        output_path="data/processed/AAPL_news_sentiment.csv",
+        input_path= f"data/processed/news/processed_news_{current_date}.csv",
+        output_path=f"data/featured/news/featured_news_{current_date}.csv",
         text_column='title' # Using title for news as it's more concise
     )
     
     # Process Reddit Data
     process_sentiment_for_source(
-        input_path="data/raw/AAPL_reddit_data.csv",
-        output_path="data/processed/AAPL_reddit_sentiment.csv",
-        text_column='title' # Using title for Reddit posts as well
+       input_path= f"data/processed/reddit/processed_reddit_{current_date}.csv",
+       output_path=f"data/featured/reddit/featured_reddit_{current_date}.csv",
+       text_column='title' # Using title for Reddit posts as well
     )
