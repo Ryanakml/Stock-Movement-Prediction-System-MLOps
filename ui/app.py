@@ -9,9 +9,11 @@ os.environ['STREAMLIT_CREDENT statIALS_DIR'] = '/tmp/.streamlit'
 
 # Utility function to get the latest 30 days of features
 def get_latest_features():
+    ticker = 'AAPL'
     st.warning("Using pre-saved sample data for demonstration purposes.")
     # Fix: Explicitly use 'Date' as the index column
-    sample_data = pd.read_csv("AAPL_final_dataset.csv", index_col='Date')
+    output_path = f"../data/final/{ticker}_final_dataset.csv"
+    sample_data = pd.read_csv(output_path, index_col='Date')
     
     # Drop the 'Unnamed: 0' column which is causing the error
     if 'Unnamed: 0' in sample_data.columns:
@@ -24,7 +26,7 @@ def get_latest_features():
         except:
             pass  # If conversion fails, keep the original index
     
-    scaler = joblib.load("models/AAPL_scaler.joblib")
+    scaler = joblib.load("../models/AAPL_scaler.joblib")
     feature_columns = sample_data.columns.drop('target')
     scaled_features = scaler.transform(sample_data[feature_columns])
     
