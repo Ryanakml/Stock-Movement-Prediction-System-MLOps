@@ -7,6 +7,7 @@ COPY ui/requirements.txt.
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY ui/app.py.
+COPY data/processed/AAPL_final_dataset.csv
 
 EXPOSE 8501
 
